@@ -3,10 +3,10 @@ class Doc2docx < Formula
 
   desc "Convert doc to docx"
   homepage "https://github.com/cosmojg/doc2docx"
-  url "https://files.pythonhosted.org/packages/79/8e/9e97cc0430cde4c2f99fa8701292deabdd373e7ba137224ae7cd505b7690/doc2docx-0.2.0.tar.gz"
-  sha256 "cfbb9c059553d1386a49138c307aae59c7f360d21b93dd87f4acf12acbefe1b2"
+  url "https://files.pythonhosted.org/packages/e8/cb/56d54053ccfe30c314eab518e6e2ff91166587938d79c6c46e5de3baba52/doc2docx-0.2.2.tar.gz"
+  sha256 "3730e8d972270bbc573049fd2d158fc8153938dceb6fd3e3bb811cb2f02352f7"
   license "MIT"
-  head "https://github.com/cosmojg/doc2docx"
+  head "https://github.com/cosmojg/doc2docx.git"
 
   depends_on "python"
 
@@ -15,23 +15,23 @@ class Doc2docx < Formula
     sha256 "64552e87a6b8fac437951f14dd66370576dd2a311bded2aef041580f82fa2c1f"
   end
 
+  resource "doc2docx" do
+    url "https://files.pythonhosted.org/packages/e8/cb/56d54053ccfe30c314eab518e6e2ff91166587938d79c6c46e5de3baba52/doc2docx-0.2.2.tar.gz"
+    sha256 "3730e8d972270bbc573049fd2d158fc8153938dceb6fd3e3bb811cb2f02352f7"
+  end
+
+  resource "lxml" do
+    url "https://files.pythonhosted.org/packages/06/5a/e11cad7b79f2cf3dd2ff8f81fa8ca667e7591d3d8451768589996b65dec1/lxml-4.9.2.tar.gz"
+    sha256 "2455cfaeb7ac70338b3257f41e21f0724f4b5b0c0e7702da67ee6c3640835b67"
+  end
+
   resource "tqdm" do
     url "https://files.pythonhosted.org/packages/3d/78/81191f56abb7d3d56963337dbdff6aa4f55805c8afd8bad64b0a34199e9b/tqdm-4.65.0.tar.gz"
     sha256 "1871fb68a86b8fb3b59ca4cdd3dcccbc7e6d613eeed31f4c332531977b89beb5"
   end
 
   def install
-    xy = Language::Python.major_minor_version "python3"
-    ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python#{xy}/site-packages"
-    resources.each do |r|
-      r.stage do
-        system "python3", *Language::Python.setup_install_args(libexec/"vendor")
-      end
-    end
-    ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python#{xy}/site-packages"
-    system "python3", *Language::Python.setup_install_args(libexec)
-    bin.install Dir[libexec/"bin/*"]
-    bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
+    virtualenv_install_with_resources
   end
 
   test do
