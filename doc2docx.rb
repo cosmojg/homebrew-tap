@@ -8,16 +8,11 @@ class Doc2docx < Formula
   license "MIT"
   head "https://github.com/cosmojg/doc2docx"
 
-  depends_on "python@3.x"
+  depends_on "python"
 
   resource "appscript" do
     url "https://files.pythonhosted.org/packages/8a/9e/fe193f177dca67e5bfd70593568a85a195f93e39347f5719edf3938e5f08/appscript-1.2.2.tar.gz"
     sha256 "64552e87a6b8fac437951f14dd66370576dd2a311bded2aef041580f82fa2c1f"
-  end
-
-  resource "doc2docx" do
-    url "https://files.pythonhosted.org/packages/79/8e/9e97cc0430cde4c2f99fa8701292deabdd373e7ba137224ae7cd505b7690/doc2docx-0.2.0.tar.gz"
-    sha256 "cfbb9c059553d1386a49138c307aae59c7f360d21b93dd87f4acf12acbefe1b2"
   end
 
   resource "lxml" do
@@ -31,7 +26,17 @@ class Doc2docx < Formula
   end
 
   def install
-    virtualenv_install_with_resources
+    xy = Language::Python.major_minor_version "python3"
+    ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python#{xy}/site-packages"
+    resources.each do |r|
+      r.stage do
+        system "python3", *Language::Python.setup_install_args(libexec/"vendor")
+      end
+    end
+    ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python#{xy}/site-packages"
+    system "python3", *Language::Python.setup_install_args(libexec)
+    bin.install Dir[libexec/"bin/*"]
+    bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
   end
 
   test do
