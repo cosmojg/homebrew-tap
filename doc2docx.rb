@@ -31,13 +31,6 @@ class Doc2docx < Formula
   end
 
   def install
-    # ENV.deparallelize
-    system "./configure", *std_configure_args, "--disable-silent-rules"
-    # system "cmake", "-S", ".", "-B", "build", *std_cmake_args
-    system "make", "install"
-  end
-
-  def install
     xy = Language::Python.major_minor_version "python3"
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python#{xy}/site-packages"
     resources.each do |r|
