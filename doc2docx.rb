@@ -3,8 +3,8 @@ class Doc2docx < Formula
 
   desc "Convert doc to docx"
   homepage "https://github.com/cosmojg/doc2docx"
-  url "https://files.pythonhosted.org/packages/29/75/09f5cba80ddfe169af912470ebd172152118964632f918ad52850a63ee89/doc2docx-0.2.3.tar.gz"
-  sha256 "eaec86b059a065661052f092e395ea343eed4b64fd890432cbdae7ab6c85bc55"
+  url "https://files.pythonhosted.org/packages/dc/2f/86f311a31cb437a2bee53bf8ec19c1ed513a8b65192972c73076335aa487/doc2docx-0.2.4.tar.gz"
+  sha256 "3a645892549f9e814a3b938d580a1e391e0d557980b5a0ad5e9574071bb5feae"
   license "MIT"
   head "https://github.com/cosmojg/doc2docx.git"
 
@@ -16,8 +16,8 @@ class Doc2docx < Formula
   end
 
   resource "doc2docx" do
-    url "https://files.pythonhosted.org/packages/29/75/09f5cba80ddfe169af912470ebd172152118964632f918ad52850a63ee89/doc2docx-0.2.3.tar.gz"
-    sha256 "eaec86b059a065661052f092e395ea343eed4b64fd890432cbdae7ab6c85bc55"
+    url "https://files.pythonhosted.org/packages/dc/2f/86f311a31cb437a2bee53bf8ec19c1ed513a8b65192972c73076335aa487/doc2docx-0.2.4.tar.gz"
+    sha256 "3a645892549f9e814a3b938d580a1e391e0d557980b5a0ad5e9574071bb5feae"
   end
 
   resource "lxml" do
